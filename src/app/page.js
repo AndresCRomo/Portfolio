@@ -262,7 +262,7 @@ export default function Home() {
       ))}
       <div id="smooth-wrapper" className="bg-[#080915]">
         <div id="smooth-content">
-          <section className="mask w-full h-screen flex items-center justify-center  relative overflow-hidden">
+          <section className="mask w-full h-[70vh] flex items-center justify-center  relative overflow-hidden">
             <h1
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
@@ -280,11 +280,13 @@ export default function Home() {
               <div className="line xl:bg-white w-[310px] opacity-0 h-1 absolute  lg:left-0"></div>
             </h1>
           </section>
-          
+            <div className="fixed md:-top-1/4 -top-1/4  left-0 w-full h-full -z-10">
+
             <CubeScene />
+            </div>
           
 
-          <section className="h-[100vh]  flex items-start justify-center text-white text-3xl">
+          <section className="h-full w-full  flex items-start justify-center text-white md:text-3xl mb-20">
             <div className="w-[70%] md:w-1/2 flex flex-col items-center gap-4  justify-center ">
               <p
                 ref={paragraphRef}
@@ -306,7 +308,7 @@ export default function Home() {
               </p>
               <p
                 ref={paragraphRef3}
-                className={`${spaceGrotesk.className} opacity-0  mt-10 text-5xl text-center`}
+                className={`${spaceGrotesk.className} opacity-0  mt-10 md:text-5xl text-2xl text-center`}
               >
                 “Alcanzar la{" "}
                 <span
@@ -319,7 +321,9 @@ export default function Home() {
               </p>
             </div>
           </section>
-          <section className="h-[100vh] bg-amber-50 flex items-start justify-center"></section>
+          <section className=" h-[100vh]  flex items-start justify-center"></section>
+          
+         
         </div>
       </div>
     </>

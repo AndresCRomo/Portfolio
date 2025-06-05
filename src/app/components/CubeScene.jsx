@@ -39,7 +39,7 @@ function SpinningCube({ position, color }) {
 
     useEffect(()=>{
         gsap.to(firstCube.current.position,{
-            x: isSmallScreen ? -1. : -1,
+            x: isSmallScreen ? -1 : -1.5,
             y: isSmallScreen ? -4.3 : 0.5,
             z: isSmallScreen ? 1 : 3,
             duration: 1.5,
@@ -73,7 +73,7 @@ function SpinningCube({ position, color }) {
             uGlitchIntensity:{value:0.35},
             
         },
-        opacity: 1,
+        
         
     })
     const glitchMaterial2 = new THREE.ShaderMaterial({
@@ -125,7 +125,7 @@ function SpinningCube({ position, color }) {
 
 export default function CubeScene() {
 return (
-    <div className="fixed -top-[450px] left-0 w-full h-full -z-10">
+    <div className="fixed md:-top-1/7 -top-1/6  left-0 w-full h-full -z-10">
         <Canvas camera={{ position: [0, 0, -5], fov: 75, near: 0.1, far: 1000 }} resize={{scroll:true}}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} />
