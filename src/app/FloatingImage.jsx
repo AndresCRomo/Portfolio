@@ -10,8 +10,8 @@ useEffect(() => {
 
     // Posicionamos en las coordenadas iniciales
     gsap.set(el, {
-    x: x,
-    y: y,
+    x: x + 10,
+    y: y + 20,
     scale: 0.8,
     opacity: 0,
     });

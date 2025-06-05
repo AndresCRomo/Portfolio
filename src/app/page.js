@@ -7,8 +7,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/all";
 import { Space_Grotesk } from "next/font/google";
 import FloatingImage from "./FloatingImage";
+import { TextPlugin } from "gsap/TextPlugin";
 import { Scroll, ScrollControls } from "@react-three/drei";
 import CubeScene from "./components/CubeScene";
+
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -78,10 +80,17 @@ export default function Home() {
   };
 
   const smootherRef = useRef(null);
+  const ageRef = useRef();
+  const paragraphRef = useRef(null);
+  const paragraphRef2 = useRef(null);
+  const paragraphRef3 = useRef(null);
+  const zoomTextRef = useRef(null);
+
+  
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother);
+      gsap.registerPlugin(ScrollTrigger, SplitText, ScrollSmoother, TextPlugin);
 
       if (!smootherRef.current) {
         smootherRef.current = ScrollSmoother.create({
@@ -135,8 +144,110 @@ export default function Home() {
           opacity: 1,
           duration: 0.5,
         });
+
+      const finalValue = "26";
+      const duration = 4; // segundos
+      let scrambleInterval;
+      let timeout;
+
+      function scrambleText(length) {
+        const chars = "0123456789";
+        let scrambled = "";
+        for (let i = 0; i < length; i++) {
+          scrambled += chars[Math.floor(Math.random() * chars.length)];
+        }
+        return scrambled;
+      }
+
+      const startScramble = () => {
+        scrambleInterval = setInterval(() => {
+          if (ageRef.current) {
+            ageRef.current.textContent = scrambleText(finalValue.length);
+          }
+        }, 100);
+
+        timeout = setTimeout(() => {
+          stopScramble();
+        }, duration * 1000);
+      };
+
+      const stopScramble = () => {
+        clearInterval(scrambleInterval);
+        if (ageRef.current) {
+          ageRef.current.textContent = finalValue;
+        }
+      };
+
+
+
+     
+
+      // 👉 Animación cuando el párrafo entra a la vista
+      const tl1 = gsap.timeline({
+        scrollTrigger: {
+          trigger: paragraphRef.current,
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            startScramble();
+          },
+        },
+      });
+
+      tl1.to(paragraphRef.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+      });
+
+      tl1.to(paragraphRef2.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+      }, "<");
+
+      const tl2 = gsap.timeline({
+        scrollTrigger: {
+          trigger: paragraphRef3.current,
+          start: "top 70%",
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          ease: "power2.out",
+          once: true,
+        },
+      });
+
+      tl2.to(paragraphRef3.current, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: "power2.out",
+      });
+      tl2.to(zoomTextRef.current, {
+        textDecorationLine: "underline",
+        textDecorationStyle: "solid",
+        textDecorationColor: "purple",
+        opacity: 1,
+        duration: 1,
+        ease: "power2.out",
+      });
+      return () => {
+        clearInterval(scrambleInterval);
+        clearTimeout(timeout);
+        ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      };
+
+
+
     }
   }, []);
+
+  
+
+ 
 
   return (
     <>
@@ -153,9 +264,9 @@ export default function Home() {
         <div id="smooth-content">
           <section className="mask w-full h-screen flex items-center justify-center  relative overflow-hidden">
             <h1
-              /* onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                onMouseMove={handleMouseMove} */
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              onMouseMove={handleMouseMove}
               className={`${spaceGrotesk.className}  text-center split text-4xl text-white text-1`}
             >
               Hola, soy Andrés Calderón Romo
@@ -169,11 +280,46 @@ export default function Home() {
               <div className="line xl:bg-white w-[310px] opacity-0 h-1 absolute  lg:left-0"></div>
             </h1>
           </section>
+          
+            <CubeScene />
+          
 
-          <section className="h-[100vh] bg-amber-300 flex items-center justify-center text-white text-3xl">
-            siguiente seccion...
+          <section className="h-[100vh]  flex items-start justify-center text-white text-3xl">
+            <div className="w-[70%] md:w-1/2 flex flex-col items-center gap-4  justify-center ">
+              <p
+                ref={paragraphRef}
+                className={`${spaceGrotesk.className}  text-justify opacity-0`}
+              >
+                Soy un joven desarrollador de{" "}
+                <span ref={ageRef} className="text-white inline-block w-[2ch]">
+                  26
+                </span>{" "}
+                años, apacionado por la tecnología y el diseño.
+              </p>
+              <p
+                ref={paragraphRef2}
+                className={`${spaceGrotesk.className} opacity-0  text-justify`}
+              >
+                Siempre listo para “Echar la casa por la ventana” cuando se
+                trata de diseñar interfaces y crear páginas web. Mi objetivo es
+                simple:
+              </p>
+              <p
+                ref={paragraphRef3}
+                className={`${spaceGrotesk.className} opacity-0  mt-10 text-5xl text-center`}
+              >
+                “Alcanzar la{" "}
+                <span
+                  ref={zoomTextRef}
+                  className="font-sans underline-offset-4 opacity-0"
+                >
+                  excelencia
+                </span>{" "}
+                y entregarla en bandeja de plata a mis clientes”
+              </p>
+            </div>
           </section>
-          <CubeScene />
+          <section className="h-[100vh] bg-amber-50 flex items-start justify-center"></section>
         </div>
       </div>
     </>

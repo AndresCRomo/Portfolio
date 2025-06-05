@@ -125,7 +125,7 @@ function SpinningCube({ position, color }) {
 
 export default function CubeScene() {
 return (
-    <div className="fixed top-0 left-0 w-full h-full -z-10">
+    <div className="fixed -top-[450px] left-0 w-full h-full -z-10">
         <Canvas camera={{ position: [0, 0, -5], fov: 75, near: 0.1, far: 1000 }} resize={{scroll:true}}>
         <ambientLight intensity={0.5} />
         <directionalLight position={[5, 5, 5]} />
