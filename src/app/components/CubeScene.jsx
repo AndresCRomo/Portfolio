@@ -39,24 +39,24 @@ function SpinningCube({ position, color }) {
 
     useEffect(()=>{
         gsap.to(firstCube.current.position,{
-            x: isSmallScreen ? -1 : -1.5,
-            y: isSmallScreen ? -4.3 : 0.5,
-            z: isSmallScreen ? 1 : 3,
+            x: isSmallScreen ? 0.3 : 1,
+            y: isSmallScreen ? -0.2 : -0.1,
+            z: isSmallScreen ? 0 : 1,
             duration: 1.5,
             ease: "power2.out",
         })
         
         
         gsap.to(secondCube.current.position,{
-            x: isSmallScreen ? -0.2 : -1,
-            y: isSmallScreen ? 1 : 1,
+            x: isSmallScreen ? -0.7 : -1,
+            y: isSmallScreen ? -0.2 : 1,
             z: isSmallScreen ? 0 : 0,
             duration: 1.5,
             ease: "power2.out",
         })
         gsap.to(thirdCube.current.position,{
             x: isSmallScreen ? 0.4 : 0.1,
-            y: isSmallScreen ? 0.2 : 0.2,
+            y: isSmallScreen ? 0.2 : 0.3,
             z: isSmallScreen ? 2 : 0,
             duration: 1.5,
             ease: "power2.out",
@@ -82,7 +82,7 @@ function SpinningCube({ position, color }) {
         uniforms:
         {
             uTime: { value: 0.9 },
-            uGlitchIntensity: { value: 0.35 },
+            uGlitchIntensity: { value: 0.15 },
             
 
         }
@@ -102,14 +102,14 @@ function SpinningCube({ position, color }) {
     useFrame(({clock}) => {
         const elapsedTime = clock.getElapsedTime();
         
-        glitchMaterial.uniforms.uTime.value = elapsedTime * 0.5;
-        glitchMaterial2.uniforms.uTime.value = elapsedTime * 0.2;
+        glitchMaterial.uniforms.uTime.value = elapsedTime;
+        glitchMaterial2.uniforms.uTime.value = elapsedTime;
         glitchMaterial3.uniforms.uTime.value = elapsedTime;
     });
 
     return (
         <>
-        <mesh  ref={firstCube} material={glitchMaterial} rotation={[0.0,1.3,3]}>
+        <mesh  ref={firstCube} material={glitchMaterial} rotation={[0,0,0.1]}>
         <boxGeometry args={[0.3, 0.3, 0.3, 34, 34, 34]} />
         </mesh>
         <mesh  ref={secondCube}  material={glitchMaterial2} rotation={[0.2,1,2.3]}>

@@ -144,6 +144,7 @@ export default function Home() {
           opacity: 1,
           duration: 0.5,
         });
+        
 
       const finalValue = "26";
       const duration = 4; // segundos
@@ -272,19 +273,19 @@ export default function Home() {
               Hola, soy Andrés Calderón Romo
             </h1>
 
+            
             <h1
-              className={`${spaceGrotesk.className}  text-center split text-4xl text-white text-2 absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0`}
+              className={`${spaceGrotesk.className}  text-center lg:text-nowrap  px-5  split text-4xl text-white text-2 absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0`}
             >
-              Desarrollador web y diseñador UX/UI.
-              <div className="line xl:bg-white w-[105px] opacity-0 h-1 absolute lg:right-0"></div>
-              <div className="line xl:bg-white w-[310px] opacity-0 h-1 absolute  lg:left-0"></div>
+              Desarrollador web y Diseñador UX/UI.
+              <div className="line xl:bg-purple-500 w-[105px] opacity-0 h-1 absolute lg:right-5"></div>
+              <div className="line xl:bg-purple-500 w-[310px] opacity-0 h-1 absolute  lg:left-5"></div>
             </h1>
+            
           </section>
-            <div className="fixed md:-top-1/4 -top-1/4  left-0 w-full h-full -z-10">
-
+          <div className="fixed md:-top-1/4 -top-1/4  left-0 w-full h-full -z-10">
             <CubeScene />
-            </div>
-          
+          </div>
 
           <section className="h-full w-full  flex items-start justify-center text-white md:text-3xl mb-20">
             <div className="w-[70%] md:w-1/2 flex flex-col items-center gap-4  justify-center ">
@@ -308,22 +309,20 @@ export default function Home() {
               </p>
               <p
                 ref={paragraphRef3}
-                className={`${spaceGrotesk.className} opacity-0  mt-10 md:text-5xl text-2xl text-center`}
+                className={`${spaceGrotesk.className} opacity-0  mt-10 md:text-5xl text-2xl  text-justify`}
               >
                 “Alcanzar la{" "}
                 <span
                   ref={zoomTextRef}
                   className="font-sans underline-offset-4 opacity-0"
                 >
-                  excelencia
+                  Excelencia
                 </span>{" "}
                 y entregarla en bandeja de plata a mis clientes”
               </p>
             </div>
           </section>
           <section className=" h-[100vh]  flex items-start justify-center"></section>
-          
-         
         </div>
       </div>
     </>
