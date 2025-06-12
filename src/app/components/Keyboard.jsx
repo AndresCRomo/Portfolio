@@ -4,7 +4,7 @@ import * as THREE from "three";
 
 export default function Keyboard({ onKeyClick }) {
 const group = useRef();
-const { scene, animations } = useGLTF("/models/keyboard.glb");
+const { scene, animations } = useGLTF("/models/Keyboard.glb");
 const { actions, mixer } = useAnimations(animations, group);
 
 // Mapeo de teclas a nombres de animaciones
