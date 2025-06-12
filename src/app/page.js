@@ -10,7 +10,7 @@ import FloatingImage from "./FloatingImage";
 import { TextPlugin } from "gsap/TextPlugin";
 import { Scroll, ScrollControls } from "@react-three/drei";
 import CubeScene from "./components/CubeScene";
-
+import SkillsSection from "./SkillsSection";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -268,18 +268,18 @@ export default function Home() {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
               onMouseMove={handleMouseMove}
-              className={`${spaceGrotesk.className}  text-center split text-4xl text-white text-1`}
+              className={`${spaceGrotesk.className}  text-center split text-4xl md:text-6xl text-white text-1`}
             >
               Hola, soy Andrés Calderón Romo
             </h1>
 
             
             <h1
-              className={`${spaceGrotesk.className}  text-center lg:text-nowrap  px-5  split text-4xl text-white text-2 absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0`}
+              className={`${spaceGrotesk.className}  text-center lg:text-nowrap  px-5  split text-4xl md:text-6xl text-white text-2 absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0`}
             >
               Desarrollador web y Diseñador UX/UI.
-              <div className="line xl:bg-purple-500 w-[105px] opacity-0 h-1 absolute lg:right-5"></div>
-              <div className="line xl:bg-purple-500 w-[310px] opacity-0 h-1 absolute  lg:left-5"></div>
+              <div className="line xl:bg-purple-500 w-[175px] opacity-0 h-1 absolute lg:right-5"></div>
+              <div className="line xl:bg-purple-500 w-[520px] opacity-0 h-1 absolute  lg:left-5"></div>
             </h1>
             
           </section>
@@ -322,9 +322,11 @@ export default function Home() {
               </p>
             </div>
           </section>
-          <section className=" h-[100vh]  flex items-start justify-center"></section>
+          <section className=" h-[100vh]  flex items-start justify-center">
+            <SkillsSection />
+          </section>
         </div>
-      </div>
+      </div>  
     </>
   );
 }
