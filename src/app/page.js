@@ -278,8 +278,8 @@ export default function Home() {
               className={`${spaceGrotesk.className}  text-center lg:text-nowrap  px-5  split text-4xl md:text-6xl text-white text-2 absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0`}
             >
               Desarrollador web y Diseñador UX/UI.
-              <div className="line xl:bg-purple-500 w-[175px] opacity-0 h-1 absolute lg:right-5"></div>
-              <div className="line xl:bg-purple-500 w-[520px] opacity-0 h-1 absolute  lg:left-5"></div>
+              <div className="line xl:bg-purple-500 w-[175px] opacity-0 h-1 xl:h-2 absolute lg:right-5"></div>
+              <div className="line xl:bg-purple-500 w-[520px] opacity-0 h-1 xl:h-2 absolute  lg:left-5"></div>
             </h1>
             
           </section>
@@ -287,8 +287,8 @@ export default function Home() {
             <CubeScene />
           </div>
 
-          <section className="h-full w-full  flex items-start justify-center text-white md:text-3xl mb-20">
-            <div className="w-[70%] md:w-1/2 flex flex-col items-center gap-4  justify-center ">
+          <section className="h-full w-full  flex items-start justify-center text-white md:text-3xl xl:text-5xl mb-20">
+            <div className="w-[80%]  flex flex-col items-center gap-4  justify-center ">
               <p
                 ref={paragraphRef}
                 className={`${spaceGrotesk.className}  text-justify opacity-0`}
@@ -309,7 +309,7 @@ export default function Home() {
               </p>
               <p
                 ref={paragraphRef3}
-                className={`${spaceGrotesk.className} opacity-0  mt-10 md:text-5xl text-2xl  text-justify`}
+                className={`${spaceGrotesk.className} opacity-0  mt-10 md:text-5xl text-2xl xl:text-6xl xl:text-center  text-justify`}
               >
                 “Alcanzar la{" "}
                 <span
@@ -323,7 +323,9 @@ export default function Home() {
             </div>
           </section>
           <section className=" h-[100vh]  flex items-start justify-center">
-            <SkillsSection />
+            
+              <SkillsSection />
+            
           </section>
         </div>
       </div>  
