@@ -23,47 +23,76 @@ function SpinningCube({ position, color }) {
     )
 
     // Responsiveness
-    function useBreakpoint(){
-    const [isSmallScreen, setIsSmallScreen] = useState(false);
-    
-    useEffect(() => {
-        const updateSize = ()=> setIsSmallScreen(window.innerWidth <768);
-        window.addEventListener("resize", updateSize);
-        updateSize();
-        return()=> window.removeEventListener("resize", updateSize);
-    }, []);
-    return isSmallScreen
-    }
-    
-    const isSmallScreen = useBreakpoint();
+    function useBreakpoints() {
+        const [breakpoint, setBreakpoint] = useState("desktop"); // Valor seguro inicial
+        
+            useEffect(() => {
+            const updateSize = () => {
+                const width = window.innerWidth;
+                if (width < 900) {
+                setBreakpoint("mobile");
+                } else if (width >= 900 && width < 1280) {
+                setBreakpoint("tablet");
+                } else {
+                setBreakpoint("desktop");
+                }
+            };
+        
+            if (typeof window !== "undefined") {
+                window.addEventListener("resize", updateSize);
+                updateSize(); // ← solo se ejecuta en cliente
+            }
+        
+            return () => {
+                if (typeof window !== "undefined") {
+                window.removeEventListener("resize", updateSize);
+                }
+            };
+            }, []);
+        
+            return breakpoint;
+        }
 
-    useEffect(()=>{
-        gsap.to(firstCube.current.position,{
-            x: isSmallScreen ? 0.3 : 1,
-            y: isSmallScreen ? -0.2 : -0.1,
-            z: isSmallScreen ? 0 : 1,
+        const breakpoint = useBreakpoints();
+
+        useEffect(() => {
+        let firstPos = {},
+            secondPos = {},
+            thirdPos = {};
+
+        if (breakpoint === "mobile") {
+            firstPos = { x: 0.23, y: 0.45, z: 1 };
+            secondPos = { x: 0.6, y: 2, z: 0 };
+            thirdPos = { x: 0.76, y: 1, z: 2 };
+        } else if (breakpoint === "tablet") {
+            firstPos = { x: 0.5, y: 0.5, z: 1 };
+            secondPos = { x: 0.5, y: 3, z: 0 };
+            thirdPos = { x: 0.9, y: 1, z: 1.6 };
+        } else {
+            // desktop
+            firstPos = { x: 0.5, y: 0.6, z: 1 };
+            secondPos = { x: 0.2, y: 3.8, z: 0 };
+            thirdPos = { x: 0.5, y: 1.1, z: 1.4 };
+        }
+
+        gsap.to(firstCube.current.position, {
+            ...firstPos,
             duration: 1.5,
             ease: "power2.out",
-        })
-        
-        
-        gsap.to(secondCube.current.position,{
-            x: isSmallScreen ? -0.7 : -1,
-            y: isSmallScreen ? -0.2 : 1,
-            z: isSmallScreen ? 0 : 0,
+        });
+        gsap.to(secondCube.current.position, {
+            ...secondPos,
             duration: 1.5,
             ease: "power2.out",
-        })
-        gsap.to(thirdCube.current.position,{
-            x: isSmallScreen ? 0.4 : 0.1,
-            y: isSmallScreen ? 0.2 : 0.3,
-            z: isSmallScreen ? 2 : 0,
+        });
+        gsap.to(thirdCube.current.position, {
+            ...thirdPos,
             duration: 1.5,
             ease: "power2.out",
-        })
-        
-        
-    },[isSmallScreen])
+        });
+        }, [breakpoint]);
+
+
     // Material de glitch
     const glitchMaterial = new THREE.ShaderMaterial({
         vertexShader: glitchVertexShader,

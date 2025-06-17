@@ -262,7 +262,8 @@ export default function Home() {
         />
       ))}
       <div id="smooth-wrapper" className="bg-[#080915]">
-        <div id="smooth-content">
+        <div className="relative" id="smooth-content">
+          
           <section className="mask w-full h-[70vh] flex items-center justify-center  relative overflow-hidden">
             <h1
               onMouseEnter={handleMouseEnter}
@@ -327,6 +328,17 @@ export default function Home() {
               <SkillsSection />
             
           </section>
+          <section className=" h-[100vh]  flex items-start justify-center">
+            
+              
+            
+          </section>
+          <section className=" h-[100vh]  flex items-start justify-center">
+            
+              
+            
+          </section>
+
         </div>
       </div>  
     </>
