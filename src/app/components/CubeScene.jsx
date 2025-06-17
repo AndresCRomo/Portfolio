@@ -9,89 +9,95 @@ import glitchFragmentShader from "../Shaders/glitch/fragment.glsl"
 import glitchFragmentShader2 from "../Shaders/glitch/fragment2.glsl"
 import glitchFragmentShader3 from "../Shaders/glitch/fragment3.glsl"
 import { gsap } from "gsap";
-function SpinningCube({ position, color }) {
+
+
+function useIsSafari() {
+    const [isSafari, setIsSafari] = useState(false);
+
+    useEffect(() => {
+    const ua = navigator.userAgent;
+    const safari = /^((?!chrome|android).)*safari/i.test(ua);
+    setIsSafari(safari);
+    }, []);
+
+    return isSafari;
+}
+
+function useBreakpoints() {
+    const [breakpoint, setBreakpoint] = useState("desktop");
+
+    useEffect(() => {
+    const updateSize = () => {
+        const width = window.innerWidth;
+        if (width < 786) setBreakpoint("mobile");
+        else if (width < 1280) setBreakpoint("tablet");
+        else setBreakpoint("desktop");
+    };
+
+    if (typeof window !== "undefined") {
+        window.addEventListener("resize", updateSize);
+        updateSize();
+    }
+
+    return () => {
+        if (typeof window !== "undefined") {
+        window.removeEventListener("resize", updateSize);
+        }
+    };
+    }, []);
+
+    return breakpoint;
+}
+
+function SpinningCube() {
     const firstCube = useRef();
     const secondCube = useRef();
     const thirdCube = useRef();
 
-    const initialRotation = useRef(
-        new THREE.Euler(
-            Math.random() * Math.PI,
-            Math.random() * Math.PI,
-            Math.random() * Math.PI
-        )
-    )
+    const isSafari = useIsSafari();
+    const breakpoint = useBreakpoints();
 
-    // Responsiveness
-    function useBreakpoints() {
-        const [breakpoint, setBreakpoint] = useState("desktop"); // Valor seguro inicial
-        
-            useEffect(() => {
-            const updateSize = () => {
-                const width = window.innerWidth;
-                if (width < 900) {
-                setBreakpoint("mobile");
-                } else if (width >= 900 && width < 1280) {
-                setBreakpoint("tablet");
-                } else {
-                setBreakpoint("desktop");
-                }
-            };
-        
-            if (typeof window !== "undefined") {
-                window.addEventListener("resize", updateSize);
-                updateSize(); // ← solo se ejecuta en cliente
-            }
-        
-            return () => {
-                if (typeof window !== "undefined") {
-                window.removeEventListener("resize", updateSize);
-                }
-            };
-            }, []);
-        
-            return breakpoint;
-        }
+    useEffect(() => {
+    let firstPos = {}, secondPos = {}, thirdPos = {};
 
-        const breakpoint = useBreakpoints();
-
-        useEffect(() => {
-        let firstPos = {},
-            secondPos = {},
-            thirdPos = {};
-
-        if (breakpoint === "mobile") {
-            firstPos = { x: 0.23, y: 0.45, z: 1 };
-            secondPos = { x: 0.6, y: 2, z: 0 };
-            thirdPos = { x: 0.76, y: 1, z: 2 };
-        } else if (breakpoint === "tablet") {
-            firstPos = { x: 0.5, y: 0.5, z: 1 };
-            secondPos = { x: 0.5, y: 3, z: 0 };
-            thirdPos = { x: 0.9, y: 1, z: 1.6 };
+    if (breakpoint === "mobile") {
+        if (isSafari) {
+        firstPos = { x: 0.23, y: 0.45, z: 1 };
+        secondPos = { x: 0.6, y: 2, z: 0 };
+        thirdPos = { x: 0.76, y: 1, z: 2 };
         } else {
-            // desktop
-            firstPos = { x: 0.5, y: 0.6, z: 1 };
-            secondPos = { x: 0.2, y: 3.8, z: 0 };
-            thirdPos = { x: 0.5, y: 1.1, z: 1.4 };
+        firstPos = { x: 0.2, y: 0.4, z: 1 };
+        secondPos = { x: 0.5, y: 1.8, z: 0 };
+        thirdPos = { x: 0.7, y: 0.9, z: 1.8 };
         }
+    } else if (breakpoint === "tablet") {
+        if (isSafari) {
+        firstPos = { x: 0.5, y: 0.5, z: 1 };
+        secondPos = { x: 0.5, y: 3, z: 0 };
+        thirdPos = { x: 0.9, y: 1, z: 1.6 };
+        } else {
+        firstPos = { x: 0.6, y: 0.6, z: 1 };
+        secondPos = { x: 0.4, y: 2.9, z: 0 };
+        thirdPos = { x: 0.9, y: 0.9, z: 1.4 };
+        }
+    } else {
+        // desktop
+        if (isSafari) {
+        firstPos = { x: 0.5, y: 0.6, z: 1 };
+        secondPos = { x: 0.2, y: 3.8, z: 0 };
+        thirdPos = { x: 0.5, y: 1.1, z: 1.4 };
+        } else {
+        firstPos = { x: 0.9, y: 0.5, z: 1 };
+        secondPos = { x: 0.25, y: 3.5, z: 0 };
+        thirdPos = { x: 0.5, y: 0.7, z: 1.3 };
+        }
+    }
 
-        gsap.to(firstCube.current.position, {
-            ...firstPos,
-            duration: 1.5,
-            ease: "power2.out",
-        });
-        gsap.to(secondCube.current.position, {
-            ...secondPos,
-            duration: 1.5,
-            ease: "power2.out",
-        });
-        gsap.to(thirdCube.current.position, {
-            ...thirdPos,
-            duration: 1.5,
-            ease: "power2.out",
-        });
-        }, [breakpoint]);
-
+    gsap.to(firstCube.current.position, { ...firstPos, duration: 1.5, ease: "power2.out" });
+    gsap.to(secondCube.current.position, { ...secondPos, duration: 1.5, ease: "power2.out" });
+    gsap.to(thirdCube.current.position, { ...thirdPos, duration: 1.5, ease: "power2.out" });
+    }, [breakpoint, isSafari]);
+  
 
     // Material de glitch
     const glitchMaterial = new THREE.ShaderMaterial({
