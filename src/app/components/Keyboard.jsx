@@ -65,7 +65,7 @@ const keyMap = {
     // Cargar y reproducir con efectos suaves
     const playCreamySound = async () => {
         const context = new (window.AudioContext || window.webkitAudioContext)();
-        const response = await fetch("/keypressDown.wav");
+        const response = await fetch("/keypress.wav");
         const arrayBuffer = await response.arrayBuffer();
         const audioBuffer = await context.decodeAudioData(arrayBuffer);
     
@@ -73,11 +73,11 @@ const keyMap = {
         source.buffer = audioBuffer;
     
         // ⬇️ Control de pitch (1.0 = normal, <1 = más grave/suave)
-        source.playbackRate.value = 0.95;
+        source.playbackRate.value = 1;
     
         // ⬇️ Ganancia (volumen)
         const gainNode = context.createGain();
-        gainNode.gain.value = .15; // menos agresivo
+        gainNode.gain.value = .50 // menos agresivo
     
         // ⬇️ Conexión
         source.connect(gainNode).connect(context.destination);
