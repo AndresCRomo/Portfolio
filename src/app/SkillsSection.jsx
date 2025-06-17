@@ -148,7 +148,7 @@ return (
                             alt={selectedSkill}
                             className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 mb-4"
                             initial={{ opacity: 0, x: isMobile? 0 : -200, y: isMobile? 300 : 50, scale: 0.7 }}
-                            animate={{ opacity: 1, x: 0, y: isMobile? 250 : -20, scale: 1.8 }}
+                            animate={{ opacity: 1, x: 0, y: isMobile? 260 : -20, scale: 1.8 }}
                             exit={{ opacity: 0, scale: 0.7 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
                         />
