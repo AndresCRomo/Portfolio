@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useRef } from "react";
 import * as THREE from "three";
-import glitchVertexShader from "../Shaders/glitch/vertex.glsl"
-import glitchFragmentShader from "../Shaders/glitch/fragment.glsl"
-import glitchFragmentShader2 from "../Shaders/glitch/fragment2.glsl"
-import glitchFragmentShader3 from "../Shaders/glitch/fragment3.glsl"
+import glitchVertexShader from "../Shaders/glitch/vertex.glsl?raw"
+import glitchFragmentShader from "../Shaders/glitch/fragment.glsl?raw"
+import glitchFragmentShader2 from "../Shaders/glitch/fragment2.glsl?raw"
+import glitchFragmentShader3 from "../Shaders/glitch/fragment3.glsl?raw"
 import { gsap } from "gsap";
 
 

@@ -8,9 +8,9 @@ import { ScrollSmoother } from "gsap/all";
 import { Space_Grotesk } from "next/font/google";
 import FloatingImage from "./FloatingImage";
 import { TextPlugin } from "gsap/TextPlugin";
-import { Scroll, ScrollControls } from "@react-three/drei";
 import CubeScene from "./components/CubeScene";
 import SkillsSection from "./SkillsSection";
+import ProjectsSection from "./ProjectsSection";
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   weight: ["400", "700"],
@@ -187,8 +187,8 @@ export default function Home() {
       const tl1 = gsap.timeline({
         scrollTrigger: {
           trigger: paragraphRef.current,
-          start: "top 80%",
-          once: true,
+          start: "top 60%",
+          once:true,
           onEnter: () => {
             startScramble();
           },
@@ -197,35 +197,34 @@ export default function Home() {
 
       tl1.to(paragraphRef.current, {
         opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
+        yPercent: 0,
+        duration: 2,
+        ease: "power3.out",
       });
 
       tl1.to(paragraphRef2.current, {
         opacity: 1,
-        y: 0,
-        duration: 1,
-        ease: "power2.out",
+        yPercent: 0,
+        duration: 2,
+        ease: "power3.out",
       }, "<");
 
       const tl2 = gsap.timeline({
         scrollTrigger: {
           trigger: paragraphRef3.current,
-          start: "top 70%",
+          start: "top 60%",
           opacity: 1,
           y: 0,
-          duration: 1,
-          ease: "power2.out",
-          once: true,
+          duration: 2,
+          ease: "power3.out",
         },
       });
 
       tl2.to(paragraphRef3.current, {
         opacity: 1,
-        y: 0,
+        yPercent: 0,
         duration: 1,
-        ease: "power2.out",
+        ease: "power3.out",
       });
       tl2.to(zoomTextRef.current, {
         textDecorationLine: "underline",
@@ -263,7 +262,6 @@ export default function Home() {
       ))}
       <div id="smooth-wrapper" className="bg-[#080915]">
         <div className="relative" id="smooth-content">
-          
           <section className="mask w-full h-[70vh] flex items-center justify-center  relative overflow-hidden">
             <h1
               onMouseEnter={handleMouseEnter}
@@ -274,7 +272,6 @@ export default function Home() {
               Hola, soy Andrés Calderón Romo
             </h1>
 
-            
             <h1
               className={`${spaceGrotesk.className}  text-center lg:text-nowrap  px-5  split text-4xl md:text-6xl text-white text-2 absolute top-1/2 left-1/2 -translate-x-1/2 translate-y-1/2 opacity-0`}
             >
@@ -282,17 +279,20 @@ export default function Home() {
               <div className="line xl:bg-purple-500 w-[175px] opacity-0 h-1 xl:h-2 absolute lg:right-5"></div>
               <div className="line xl:bg-purple-500 w-[520px] opacity-0 h-1 xl:h-2 absolute  lg:left-5"></div>
             </h1>
-            
           </section>
           <div className="fixed md:-top-1/4 -top-1/4  left-0 w-full h-full -z-10">
             <CubeScene />
           </div>
 
-          <section className="h-full w-full  flex items-start justify-center text-white md:text-3xl xl:text-5xl mb-20">
-            <div className="w-[80%]  flex flex-col items-center gap-4  justify-center ">
+          <section className="mask2 h-full w-full  flex items-start justify-center text-white md:text-3xl xl:text-5xl mb-20  ">
+            <div className="w-[80%]  flex flex-col items-center gap-10  justify-center">
               <p
                 ref={paragraphRef}
-                className={`${spaceGrotesk.className}  text-justify opacity-0`}
+                className={`${spaceGrotesk.className}  opacity-0`}
+                style={{
+                  textAlign: "justify",
+                  textAlignLast: "center",
+                }}
               >
                 Soy un joven desarrollador de{" "}
                 <span ref={ageRef} className="text-white inline-block w-[2ch]">
@@ -302,15 +302,27 @@ export default function Home() {
               </p>
               <p
                 ref={paragraphRef2}
-                className={`${spaceGrotesk.className} opacity-0  text-justify`}
+                className={`${spaceGrotesk.className} opacity-0 `}
+                style={{
+                  textAlign: "justify",
+                  textAlignLast: "center",
+                  lineHeight: 1.1,
+                }}
               >
-                Siempre listo para “Echar la casa por la ventana” cuando se
-                trata de diseñar interfaces y crear páginas web. Mi objetivo es
-                simple:
+                Siempre listo para{" "}
+                <span className="bg-gradient-to-br from-[#7affa0]/80 to-[#8832f0]/80">
+                  “Echar la casa por la ventana”
+                </span>{" "}
+                cuando se trata de diseñar interfaces y crear páginas web.
+                Mi&nbsp;objetivo&nbsp;es&nbsp;simple:
               </p>
               <p
                 ref={paragraphRef3}
-                className={`${spaceGrotesk.className} opacity-0  mt-10 md:text-5xl text-2xl xl:text-6xl xl:text-center  text-justify`}
+                className={`${spaceGrotesk.className} opacity-0  mt-10 md:text-5xl text-2xl xl:text-6xl `}
+                style={{
+                  textAlign: "justify",
+                  textAlignLast: "center",
+                }}
               >
                 “Alcanzar la{" "}
                 <span
@@ -324,23 +336,12 @@ export default function Home() {
             </div>
           </section>
           <section className=" h-[100vh]  flex items-start justify-center">
-            
-              <SkillsSection />
-            
+            <SkillsSection />
           </section>
-          <section className=" h-[100vh]  flex items-start justify-center">
-            
-              
-            
-          </section>
-          <section className=" h-[100vh]  flex items-start justify-center">
-            
-              
-            
-          </section>
-
+          <section className=" h-[100vh]  flex items-start justify-center"></section>
+          <section className=" h-[100vh]  flex items-start justify-center"></section>
         </div>
-      </div>  
+      </div>
     </>
   );
 }
