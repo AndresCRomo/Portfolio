@@ -82,13 +82,12 @@ const skillLogoUrls = {
     ReactKey: "/REACTSVG1.svg",
 }
 
-const defaultBg = "linear-gradient(to bottom, #080915, #080915)";
 
 export default function SkillsSection() {
 const [selectedSkill, setSelectedSkill] = useState(null);
 const keyboardRef = useRef();
 const width = typeof window !== "undefined" ? window.innerWidth : 1024;
-const scale = width >= 1280 ? 1.2 : width >= 768 ? 0.9 : 0.8;
+const scale = width >= 1280 ? 1 : width >= 768 ? 0.9 : 0.8;
 
 
 const circle1Ref = useRef(null);
@@ -138,7 +137,7 @@ return (
         <h1 className={`${spaceGrotesk.className} text-5xl md:text-8xl lg:mb-8 -mb-10`}>
             Skills
         </h1>
-        <div className="flex flex-col md:flex-row items-center justify-center  md:w-[80%]  w-full gap-0 lg:gap-8 p-8">
+        <div className="flex flex-col md:flex-row items-center justify-center  w-full gap-0 lg:gap-8 p-8">
             {/* Descripción a la izquierda */}
             <AnimatePresence mode="wait">
                 {selectedSkill && skillDescriptions[selectedSkill] ? (
@@ -148,7 +147,7 @@ return (
                     animate={{ opacity: 1, y: -30 }}
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="relative flex flex-col items-center text-center md:items-start md:text-left md:w-[40%] "
+                    className="relative flex flex-col items-center text-center md:items-start md:text-left md:w-[50%] "
                     >
                         <motion.img
                             key={selectedSkill + "-logo"}
@@ -160,15 +159,15 @@ return (
                             exit={{ opacity: 0, scale: 0.7 }}
                             transition={{ duration: 0.8, ease: "easeOut" }}
                         />
-                    <h2 className={`${spaceGrotesk.className} text-4xl md:text-7xl xl:text-9xl mb-4 z-10 `}>
+                    <h2 className={`${spaceGrotesk.className} text-4xl md:text-6xl xl:text-7xl mb-4 z-10 `}>
                         {skillDescriptions[selectedSkill].title}
                     </h2>
-                    <p className={`${spaceGrotesk.className} md:text-3xl xl:text-5xl `}>
+                    <p className={`${spaceGrotesk.className} md:text-3xl xl:text-4xl `}>
                         {skillDescriptions[selectedSkill].description}
                     </p>
                     </motion.div>
                 ) : (
-                    <p className={`${spaceGrotesk.className} text-3xl xl:text-5xl w-[40%]`}>
+                    <p className={`${spaceGrotesk.className} text-3xl xl:text-5xl md:w-[40%]`}>
                     Haz clic en una tecla 👀!
                     </p>
                 )}
@@ -191,13 +190,12 @@ return (
 
             onPointerLeave = {()=>{
                 if (keyboardRef.current){
-                    /* console.log("Mouse left the canvas"); */
                     keyboardRef.current.resetRotation();
                 }
             }}
             onMouseLeave={()=>{
                 if (keyboardRef.current){
-                    keyboardRef.current?.resetRotation();
+                    keyboardRef.current.resetRotation();
                 }
             }}
 

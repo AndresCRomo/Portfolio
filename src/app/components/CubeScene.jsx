@@ -31,7 +31,8 @@ function useBreakpoints() {
         const width = window.innerWidth;
         if (width < 786) setBreakpoint("mobile");
         else if (width < 1280) setBreakpoint("tablet");
-        else setBreakpoint("desktop");
+        else if (width <1536) setBreakpoint("desktop");
+        else setBreakpoint("xl");
     };
 
     if (typeof window !== "undefined") {
@@ -80,16 +81,27 @@ function SpinningCube() {
         secondPos = { x: 0.4, y: 2.9, z: 0 };
         thirdPos = { x: 0.9, y: 0.9, z: 1.4 };
         }
-    } else {
+    } else if (breakpoint === "desktop") {
         // desktop
         if (isSafari) {
         firstPos = { x: 0.5, y: 0.6, z: 1 };
         secondPos = { x: 0.2, y: 3.8, z: 0 };
+        thirdPos = { x: 0.5, y: 1.1, z: 1.3 };
+        } else {
+        firstPos = { x: 0.7, y: 0.7, z: 1 };
+        secondPos = { x: 0.45, y: 4.3, z: 0 };
+        thirdPos = { x: 0.5, y: 1.1, z: 1.3 };
+        }
+    } else {
+        // Xl
+        if (isSafari) {
+        firstPos = { x: 0.5, y: 0.6, z: 1 };
+        secondPos = { x: 0.4, y: 4, z: 0 };
         thirdPos = { x: 0.5, y: 1.1, z: 1.4 };
         } else {
-        firstPos = { x: 0.9, y: 0.5, z: 1 };
-        secondPos = { x: 0.25, y: 3.5, z: 0 };
-        thirdPos = { x: 0.5, y: 0.7, z: 1.3 };
+        firstPos = { x: 0.7, y: 0.7, z: 1 };
+        secondPos = { x: 0.05, y: 4, z: 0 };
+        thirdPos = { x: 0.5, y: 1.1, z: 1.3 };
         }
     }
 
